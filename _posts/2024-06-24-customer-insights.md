@@ -19,7 +19,7 @@ In this solution I will show how I connected directly to the companies postgreSQ
 
 In order to begin this analysis, we first load our data from the PostgreSQL database into Pandas DataFrames using Python. This sets us up to be able to quickly perform EDA and run our statisical analysis on the tables provided to us by the business.
 
-...
+```Python
 
     from sqlalchemy import create_engine
     import pandas as pd
@@ -48,4 +48,4 @@ In order to begin this analysis, we first load our data from the PostgreSQL data
         
     except Exception as error:
         print(f"Error executing the query: {error}")
-...
+```
