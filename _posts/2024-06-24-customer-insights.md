@@ -13,54 +13,46 @@ tags: [SQL, Python, Tableau]
 
 ---
 
-Firstly, I love Python so much, here is some code!
+# Business Case
 
-```
-my_love_for_python = 0
-my_python_knowledge = 0
+The owners of a small grocery chain have asked for an analysis of their Sales, Customers, and a recent marketing campaign based on data stored in a database. They would like a basic statistical analysis on this data and a dashboard summarizing the key insights and trends in these 3 domains.
 
-for day in lifetime:
-    my_love_for_python += 1
-    my_python_knowledge += 1
-```
+# Solution
 
-Just so you really see how much I love Python, here is some code BUT with some colours for keywords & functionality!
-
-```python
-my_love_for_python = 0
-my_python_knowledge = 0
-
-for day in lifetime:
-    my_love_for_python += 1
-    my_python_knowledge += 1  
-```
-
-Here is an **unordered list** showing some things I love about Python
-
-* For my work
-    * Data Analysis
-    * Data Visualisation
-    * Machine Learning
-* For fun
-    * Deep Learning
-    * Computer Vision
-    * Projects about coffee
-
-Here is an _ordered list_ showing some things I love about coffee
-
-1. The smell
-    1. Especially in the morning, but also at all times of the day!
-2. The taste
-3. The fact I can run the 100m in approx. 9 seconds after having 4 cups in quick succession
-
-I love Python & Coffee so much, here is that picture from the top of my project AGAIN, but this time, in the BODY of my project!
-
-![alt text](https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "Grocery store sales and customers")
-
-The above image is just linked to the actual file in my Github, but I could also link to images online, using the URL!
-
-A line break, like this one below - helps me make sense of what I'm reading, especially when I've had so much coffee that my vision goes a little blurry
+In this solution I will show how I connected directly to the companies postgreSQL database using Python and performed exploratory data analysis, handled outliers, generated precurosor visualisations, and the final dashboard in Tableau presenting key statistics and trends back to the business.
 
 ---
 
-I could also add things to my project like links, tables, quotes, and HTML blocks - but I'm starting to get a cracking headache.  Must be coffee time.
+## Running Our SQL Statement in Python
+
+In order to begin this analysis, we first load our data from the PostgreSQL database into Pandas DataFrames using Python. This sets us up to be able to quickly perform EDA and run our statisical analysis on the tables provided to us by the business.
+
+...
+from sqlalchemy import create_engine
+import pandas as pd
+
+db_params = {
+    'dbname': 'data_science_infinity',
+    'user': 'student',
+    'password': '*******',
+    'host': 'data-science-infinity.cpwa6tfdvnx2.eu-west-2.rds.amazonaws.com',
+    'port': '5432'
+}
+
+connection_string = f"postgresql://{db_params['user']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['dbname']}"
+
+# Create the SQLAlchemy engine
+engine = create_engine(connection_string)
+
+# Example query
+try:
+    
+    customer_details = pd.read_sql('SELECT * FROM customer_details', engine)
+    transactions = pd.read_sql('SELECT * FROM grocery_db.transactions', engine)
+    campaign_data = pd.read_sql('SELECT * FROM grocery_db.campaign_data', engine)
+    product_areas = pd.read_sql('SELECT * FROM grocery_db.product_areas', engine)
+    loyalty_scores = pd.read_sql('SELECT * FROM grocery_db.loyalty_scores', engine)
+    
+except Exception as error:
+    print(f"Error executing the query: {error}")
+...
