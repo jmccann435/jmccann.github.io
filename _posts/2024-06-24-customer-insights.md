@@ -28,31 +28,32 @@ In this solution I will show how I connected directly to the companies postgreSQ
 In order to begin this analysis, we first load our data from the PostgreSQL database into Pandas DataFrames using Python. This sets us up to be able to quickly perform EDA and run our statisical analysis on the tables provided to us by the business.
 
 ...
-from sqlalchemy import create_engine
-import pandas as pd
 
-db_params = {
-    'dbname': 'data_science_infinity',
-    'user': 'student',
-    'password': '*******',
-    'host': 'data-science-infinity.cpwa6tfdvnx2.eu-west-2.rds.amazonaws.com',
-    'port': '5432'
-}
-
-connection_string = f"postgresql://{db_params['user']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['dbname']}"
-
-# Create the SQLAlchemy engine
-engine = create_engine(connection_string)
-
-# Example query
-try:
+    from sqlalchemy import create_engine
+    import pandas as pd
     
-    customer_details = pd.read_sql('SELECT * FROM customer_details', engine)
-    transactions = pd.read_sql('SELECT * FROM grocery_db.transactions', engine)
-    campaign_data = pd.read_sql('SELECT * FROM grocery_db.campaign_data', engine)
-    product_areas = pd.read_sql('SELECT * FROM grocery_db.product_areas', engine)
-    loyalty_scores = pd.read_sql('SELECT * FROM grocery_db.loyalty_scores', engine)
+    db_params = {
+        'dbname': 'data_science_infinity',
+        'user': 'student',
+        'password': '*******',
+        'host': 'data-science-infinity.cpwa6tfdvnx2.eu-west-2.rds.amazonaws.com',
+        'port': '5432'
+    }
     
-except Exception as error:
-    print(f"Error executing the query: {error}")
+    connection_string = f"postgresql://{db_params['user']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['dbname']}"
+    
+    # Create the SQLAlchemy engine
+    engine = create_engine(connection_string)
+    
+    # Example query
+    try:
+        
+        customer_details = pd.read_sql('SELECT * FROM customer_details', engine)
+        transactions = pd.read_sql('SELECT * FROM grocery_db.transactions', engine)
+        campaign_data = pd.read_sql('SELECT * FROM grocery_db.campaign_data', engine)
+        product_areas = pd.read_sql('SELECT * FROM grocery_db.product_areas', engine)
+        loyalty_scores = pd.read_sql('SELECT * FROM grocery_db.loyalty_scores', engine)
+        
+    except Exception as error:
+        print(f"Error executing the query: {error}")
 ...
