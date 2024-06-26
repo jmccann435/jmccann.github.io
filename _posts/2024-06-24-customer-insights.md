@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Customer Insights and Sales
-image: "/img/grocery.jpg"
+image: "/posts/grocery.jpg"
 tags: [SQL, Python, Tableau]
 ---
 
